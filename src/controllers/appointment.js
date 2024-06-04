@@ -8,8 +8,8 @@ export const createNewAppointment = async (req, res) => {
             return res.status(400).json({ err: 1, msg: 'Missing inputs' });
         }
         // Truyền userId vào hàm tạo lịch hẹn mới
-        await appointmentService.createNewAppointmentService(appointmentRequesterID, posterId, postId, { appointmentDate, appointmentTime, content });
-        res.status(201).json({ message: 'Appointment created successfully' });
+        const appointmentNew = await appointmentService.createNewAppointmentService(appointmentRequesterID, posterId, postId, { appointmentDate, appointmentTime, content });
+        res.status(201).json({ message: 'Appointment created successfully', appointmentNew });
     } catch (error) {
         console.error('Failed to create appointment:', error);
         res.status(500).json({ err: -1, msg: 'Failed to create appointment' });
