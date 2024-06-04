@@ -522,7 +522,7 @@ export const updatePostStar = async () => {
             // Tính tổng số rate trong các comment của bài đăng
             if (post.comments.length > 0) {
                 totalRate = post.comments.reduce((acc, comment) => acc + parseFloat(comment.rate), 0);
-                totalRate /= post.comments.length; // Tính trung bình
+                totalRate = Math.round(totalRate / post.comments.length * 10) / 10; // Tính trung bình
             }
 
             // Cập nhật trường star của bài đăng
@@ -589,6 +589,163 @@ export const visiblePostService = async (postId, userId) => {
             err: 0,
             msg: 'Post Visible successfully'
         };
+    } catch (error) {
+        throw error;
+    }
+};
+
+export const countPostsService = async () => {
+    try {
+        const count = await db.Post.count(); // Use `count` method to get total posts
+        return {
+            err: 0,
+            msg: 'OK',
+            count: count
+        };
+    } catch (error) {
+        throw error; // Re-throw the error for proper handling in the calling function
+    }
+};
+
+export const countPostsThisMonthService = async () => {
+    try {
+        const startOfMonth = new Date(new Date().getFullYear(), new Date().getMonth(), 1);
+        const endOfMonth = new Date(new Date().getFullYear(), new Date().getMonth() + 1, 0);
+
+        const count = await db.Post.count({
+            where: {
+                createdAt: {
+                    [Op.between]: [startOfMonth, endOfMonth]
+                }
+            }
+        });
+
+        return {
+            err: 0,
+            msg: 'OK',
+            count: count
+        };
+    } catch (error) {
+        throw error; // Re-throw the error for proper handling in the calling function
+    }
+};
+
+
+export const countPostsByMonthService = async (year) => {
+    try {
+        const counts = [];
+        const currentMonth = new Date().getMonth(); // Get the current month
+
+        for (let month = 0; month <= currentMonth; month++) { // Loop up to the current month
+            const startOfMonth = new Date(year, month, 1);
+            const endOfMonth = new Date(year, month + 1, 0);
+
+            const count = await db.Post.count({
+                where: {
+                    createdAt: {
+                        [Op.between]: [startOfMonth, endOfMonth]
+                    }
+                }
+            });
+
+            counts.push({
+                month: month + 1, // Months start from 1 instead of 0
+                count: count
+            });
+        }
+
+        return {
+            err: 0,
+            msg: 'OK',
+            counts: counts
+        };
+    } catch (error) {
+        throw error;
+    }
+};
+
+
+
+export const countPostsByDistrictService = async (year) => {
+    try {
+        const counts = [];
+
+        // Lấy danh sách quận (giả sử lưu trong bảng District)
+        const districts = await db.District.findAll();
+
+        for (const district of districts) {
+            const count = await db.Post.count({
+                where: {
+                    districtId: district.id, // Lọc theo id quận
+                    createdAt: {
+                        [Op.between]: [
+                            new Date(year, 0, 1), // 1/1 của năm
+                            new Date(year, 11, 31), // 31/12 của năm
+                        ],
+                    },
+                },
+            });
+
+            counts.push({
+                district: district.name, // Tên quận
+                count: count,
+            });
+        }
+
+        return {
+            err: 0,
+            msg: 'OK',
+            counts: counts,
+        };
+    } catch (error) {
+        throw error;
+    }
+};
+
+export const getDistrictPostCountService = async () => {
+    try {
+        // Lấy tất cả các tỉnh/thành phố
+        const provinces = await db.Province.findAll({
+            attributes: ['code', 'value'],
+        });
+
+        // Tạo mapping từ code sang value cho tỉnh/thành phố
+        const provinceMap = {};
+        provinces.forEach(province => {
+            provinceMap[province.code] = province.value;
+        });
+
+        // Khởi tạo một đối tượng để lưu trữ số lượng bài đăng cho từng quận
+        const districtPostCount = {};
+
+        // Lấy tất cả bài đăng
+        const posts = await db.Post.findAll();
+
+        // Lặp qua tất cả bài đăng
+        posts.forEach(post => {
+            const provinceCode = post.provinceCode;
+
+            // Nếu chưa tồn tại thì khởi tạo
+            if (!districtPostCount[provinceCode]) {
+                districtPostCount[provinceCode] = 0;
+            }
+
+            // Tăng số lượng bài đăng cho quận
+            districtPostCount[provinceCode]++;
+        });
+
+        // Tạo dữ liệu trả về
+        const districtStats = [];
+        for (const provinceCode in districtPostCount) {
+            const provinceName = provinceMap[provinceCode] || 'Unknown Province';
+            const postCount = districtPostCount[provinceCode];
+            districtStats.push({
+                provinceName,
+                postCount,
+            });
+        }
+
+        return districtStats;
     } catch (error) {
         throw error;
     }

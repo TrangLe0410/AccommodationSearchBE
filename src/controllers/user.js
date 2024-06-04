@@ -52,3 +52,31 @@ export const updateProfile = async (req, res) => {
         });
     }
 };
+
+
+export const countUser = async (req, res) => {
+    try {
+        const response = await services.countUserService(); // Call countPostsService from your service layer
+        return res.status(200).json(response);
+    } catch (error) {
+        console.error('Error counting posts:', error);
+        return res.status(500).json({
+            err: -1,
+            msg: 'Failed to count posts: ' + error
+        });
+    }
+};
+
+export const countUsersFromMay2024 = async (req, res) => {
+    try {
+        const result = await services.countUsersByRegistrationDate();
+        res.status(200).json(result);
+    } catch (error) {
+        res.status(500).json({
+            err: 1,
+            msg: 'Failed to count users',
+            error: error.message
+        });
+    }
+};
+

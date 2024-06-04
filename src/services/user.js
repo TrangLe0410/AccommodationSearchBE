@@ -1,5 +1,5 @@
 import db from '../models'
-
+const { Op } = require("sequelize");
 // GET CURRENT
 export const getOne = (id) => new Promise(async (resolve, reject) => {
     try {
@@ -78,5 +78,40 @@ export const updateProfile = async (userId, newData) => {
         return user;
     } catch (error) {
         throw error;
+    }
+};
+export const countUserService = async () => {
+    try {
+        const count = await db.User.count(); // Use `count` method to get total posts
+        return {
+            err: 0,
+            msg: 'OK',
+            count: count
+        };
+    } catch (error) {
+        throw error; // Re-throw the error for proper handling in the calling function
+    }
+};
+
+export const countUsersByRegistrationDate = async () => {
+    try {
+        const startDate = new Date('2024-06-01T00:00:00Z');
+        const endDate = new Date(); // Current date and time
+
+        const count = await db.User.count({
+            where: {
+                createdAt: {
+                    [Op.between]: [startDate, endDate]
+                }
+            }
+        });
+
+        return {
+            err: 0,
+            msg: 'OK',
+            count: count
+        };
+    } catch (error) {
+        throw error; // Re-throw the error for proper handling in the calling function
     }
 };
