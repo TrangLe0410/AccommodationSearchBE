@@ -101,6 +101,7 @@ export const createNewPostService = async (body, userId) => {
         const labelCode = generateCode(body.label);
         const hashtag = `#${Math.floor(Math.random() * Math.pow(10, 6))}`;
         const currentDate = generateDate();
+        const videoUrl = body.videoUrl || null;
 
         let provinceCode = null;
         if (body.address) {
@@ -127,7 +128,8 @@ export const createNewPostService = async (body, userId) => {
                 provinceCode,
                 priceNumber: body.priceNumber,
                 areaNumber: body.areaNumber,
-                status: 'pending'
+                status: 'pending',
+                video: videoUrl
             }),
             db.Attribute.create({
                 id: attributesId,
@@ -215,6 +217,7 @@ export const updatePost = ({ postId, overviewId, imagesId, attributesId, ...body
     try {
         const labelCode = generateCode(body.label)
         let provinceCode = null;
+        const videoUrl = body.videoUrl || null;
         if (body.address) {
             const addressArr = body.address.split(',');
             if (addressArr.length >= 2) {
@@ -232,6 +235,7 @@ export const updatePost = ({ postId, overviewId, imagesId, attributesId, ...body
             areaCode: body.areaCode || null,
             priceCode: body.priceCode || null,
             provinceCode,
+            video: videoUrl,
             priceNumber: body.priceNumber,
             areaNumber: body.areaNumber
         }, {
