@@ -12,6 +12,7 @@ import statisticalRouter from './statistical'
 import messageRoutes from './messageRoutes';
 import conversationRoutes from './conversationRoutes';
 import notification from './notification'
+import payment from './payment'
 const initRoutes = (app) => {
     app.use('/api/v1/auth', authRouter)
     app.use('/api/v1/insert', insertRouter)
@@ -27,6 +28,7 @@ const initRoutes = (app) => {
     app.use('/api/v1/conversations', conversationRoutes);
     app.use('/api/v1/messages', messageRoutes);
     app.use('/api/v1/notification', notification);
+    app.use('/api/v1/payment', payment)
 
 
     return app.use('/', (req, res) => {
