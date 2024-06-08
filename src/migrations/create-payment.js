@@ -1,13 +1,11 @@
-// migrations/xxxxxx-create-payment.js
 'use strict';
 module.exports = {
     async up(queryInterface, Sequelize) {
         await queryInterface.createTable('Payments', {
             id: {
                 allowNull: false,
-                autoIncrement: true,
                 primaryKey: true,
-                type: Sequelize.INTEGER
+                type: Sequelize.STRING // Thay đổi kiểu dữ liệu của cột id thành STRING
             },
             datetime_transaction: {
                 type: Sequelize.DATE,

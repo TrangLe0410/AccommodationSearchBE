@@ -1,7 +1,7 @@
 'use strict';
-const { Model } = require('sequelize');
+const { Model, DataTypes } = require('sequelize');
 
-module.exports = (sequelize, DataTypes) => {
+module.exports = (sequelize) => {
     class Payment extends Model {
         static associate(models) {
             Payment.belongsTo(models.User, { foreignKey: 'userId', targetKey: 'id', as: 'user' });
@@ -13,9 +13,9 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING,
             primaryKey: true,
             defaultValue: () => {
-                const timestamp = Date.now().toString(); // Lấy thời gian hiện tại
-                const randomNum = Math.floor(Math.random() * 1000000).toString().padStart(6, '0'); // Tạo số ngẫu nhiên 6 chữ số
-                return timestamp + randomNum; // Kết hợp thời gian và số ngẫu nhiên
+                const timestamp = Date.now().toString();
+                const randomNum = Math.floor(Math.random() * 1000000).toString().padStart(6, '0');
+                return timestamp + randomNum;
             },
             allowNull: false
         },

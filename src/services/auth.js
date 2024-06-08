@@ -32,12 +32,12 @@ export const registerService = ({ phone, password, name, email }) => new Promise
 
 export const loginService = async ({ phone, password }) => {
     try {
-        const response = await db.User.findOne({
+        const user = await db.User.findOne({
             where: { phone },
             raw: true
         });
 
-        if (!response) {
+        if (!user) {
             return {
                 err: 2,
                 msg: 'Số điện thoại không tồn tại!',
@@ -45,7 +45,15 @@ export const loginService = async ({ phone, password }) => {
             };
         }
 
-        const isCorrectPassword = bcrypt.compareSync(password, response.password);
+        if (user.status === 'locked') {
+            return {
+                err: 2,
+                msg: 'Tài khoản của bạn đã bị khóa!',
+                token: null
+            };
+        }
+
+        const isCorrectPassword = bcrypt.compareSync(password, user.password);
 
         if (!isCorrectPassword) {
             return {
@@ -55,10 +63,10 @@ export const loginService = async ({ phone, password }) => {
             };
         }
 
-        const token = jwt.sign({ id: response.id, phone: response.phone }, process.env.SECRET_KEY, { expiresIn: '2d' });
+        const token = jwt.sign({ id: user.id, phone: user.phone }, process.env.SECRET_KEY, { expiresIn: '2d' });
 
         // Lấy vai trò của người dùng
-        const role = response.role;
+        const role = user.role;
 
         // Trả về đối tượng phản hồi với vai trò đã được thêm vào
         return {
@@ -69,6 +77,7 @@ export const loginService = async ({ phone, password }) => {
         };
 
     } catch (error) {
+        console.error('Error in loginService:', error);
         throw error;
     }
 };

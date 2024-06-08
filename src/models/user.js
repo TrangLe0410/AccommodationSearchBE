@@ -34,6 +34,10 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.FLOAT,
       defaultValue: 0
     },
+    status: {
+      type: DataTypes.ENUM('active', 'locked'),
+      defaultValue: 'active',
+    }
   }, {
     sequelize,
     modelName: 'User',
