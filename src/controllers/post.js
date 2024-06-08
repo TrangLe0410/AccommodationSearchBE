@@ -300,3 +300,61 @@ export const visiblePost = async (req, res) => {
         });
     }
 };
+
+
+export const countPosts = async (req, res) => {
+    try {
+        const response = await postService.countPostsService(); // Call countPostsService from your service layer
+        return res.status(200).json(response);
+    } catch (error) {
+        console.error('Error counting posts:', error);
+        return res.status(500).json({
+            err: -1,
+            msg: 'Failed to count posts: ' + error
+        });
+    }
+};
+
+export const countPostsThisMonth = async (req, res) => {
+    try {
+        const response = await postService.countPostsThisMonthService();
+        return res.status(200).json(response);
+    } catch (error) {
+        console.error('Error counting posts this month:', error);
+        return res.status(500).json({
+            err: -1,
+            msg: 'Failed to count posts this month: ' + error.message
+        });
+    }
+};
+
+export const countPostsByMonth = async (req, res) => {
+    try {
+        const year = req.query.year || new Date().getFullYear(); // Lấy năm từ query, nếu không có thì lấy năm hiện tại
+        const response = await postService.countPostsByMonthService(year);
+        return res.status(200).json(response);
+    } catch (error) {
+        console.error('Error counting posts by month:', error);
+        return res.status(500).json({
+            err: -1,
+            msg: 'Failed to count posts by month: ' + error.message
+        });
+    }
+};
+
+export const getDistrictPostCountController = async (req, res) => {
+    try {
+        // Gọi hàm service để lấy dữ liệu
+        const districtStats = await postService.getDistrictPostCountService();
+
+        // Trả về kết quả thành công
+        return res.json({
+            err: 0,
+            msg: 'Get district post count successfully',
+            districtStats,
+        });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ err: 1, msg: 'Internal server error' });
+    }
+};

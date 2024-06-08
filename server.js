@@ -108,12 +108,15 @@ io.on("connection", (socket) => {
 
     socket.on('send_notification', async (data) => {
         try {
-            // Save notification to database
+            // Save notification to database with unread status
             await Notification.create({
                 userId: data.userId,
                 content: data.content,
-                appointmentId: data.appointmentId
+                appointmentId: data.appointmentId,
+                read: false
             });
+
+            // Emit socket event to notify clients about new notification
             io.emit('new_notification_created');
 
             console.log('Notification created successfully');
@@ -132,7 +135,7 @@ io.on("connection", (socket) => {
             );
             // Gửi sự kiện socket để thông báo cho tất cả các client khác về việc đã cập nhật trạng thái của thông báo
             io.emit('notifications_marked_as_read', { userId: data.userId });
-            console.log('doc thong bao thanh cong')
+
         } catch (error) {
             console.error('Error marking notifications as read:', error);
         }

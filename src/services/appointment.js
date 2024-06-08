@@ -4,7 +4,7 @@ import { v4 as generateId } from 'uuid';
 export const createNewAppointmentService = async (appointmentRequesterID, posterId, postId, appointmentData) => {
     try {
         const appointmentId = generateId();
-        await db.Appointment.create({
+        const appointmentNew = await db.Appointment.create({
             id: appointmentId,
             appointmentRequesterID,
             posterId,
@@ -14,6 +14,7 @@ export const createNewAppointmentService = async (appointmentRequesterID, poster
             content: appointmentData.content,
             status: 'Pending'
         });
+        return appointmentNew;
     } catch (error) {
         throw error;
     }

@@ -29,6 +29,14 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.ENUM('admin', 'user', 'moderator'), // Thay đổi giá trị ENUM tùy theo nhu cầu của bạn
       allowNull: false,
       defaultValue: 'user' // Giá trị mặc định là 'user'
+    },
+    balance: {
+      type: DataTypes.FLOAT,
+      defaultValue: 0
+    },
+    status: {
+      type: DataTypes.ENUM('active', 'locked'),
+      defaultValue: 'active',
     }
   }, {
     sequelize,
