@@ -23,7 +23,7 @@ export const getUserService = () => new Promise(async (resolve, reject) => {
     try {
         const response = await db.User.findAll({
             raw: true,
-            attributes: ['id', 'name', 'phone', 'zalo', 'fbUrl', 'role', 'avatar']
+            attributes: ['id', 'name', 'phone', 'zalo', 'fbUrl', 'role', 'avatar', 'balance', 'status']
         })
         resolve({
             err: response ? 0 : 1,
@@ -113,5 +113,46 @@ export const countUsersByRegistrationDate = async () => {
         };
     } catch (error) {
         throw error; // Re-throw the error for proper handling in the calling function
+    }
+};
+
+
+export const lockUserAccount = async (userId) => {
+    try {
+        const user = await db.User.findByPk(userId);
+        if (!user) {
+            throw new Error('User not found');
+        }
+
+        user.status = 'locked';
+        await user.save();
+
+        return {
+            err: 0,
+            msg: 'User account locked successfully',
+            user
+        };
+    } catch (error) {
+        throw error;
+    }
+};
+
+export const unLockUserAccount = async (userId) => {
+    try {
+        const user = await db.User.findByPk(userId);
+        if (!user) {
+            throw new Error('User not found');
+        }
+
+        user.status = 'active';
+        await user.save();
+
+        return {
+            err: 0,
+            msg: 'User account active successfully',
+            user
+        };
+    } catch (error) {
+        throw error;
     }
 };

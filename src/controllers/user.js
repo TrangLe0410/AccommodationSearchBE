@@ -80,3 +80,33 @@ export const countUsersFromMay2024 = async (req, res) => {
     }
 };
 
+
+export const lockUser = async (req, res) => {
+    const { userId } = req.query;
+
+    try {
+        const response = await services.lockUserAccount(userId);
+        return res.status(200).json(response);
+    } catch (error) {
+        console.error('Error locking user account:', error);
+        return res.status(500).json({
+            err: -1,
+            msg: 'Failed to lock user account: ' + error.message
+        });
+    }
+};
+
+export const unLockUser = async (req, res) => {
+    const { userId } = req.query;
+
+    try {
+        const response = await services.unLockUserAccount(userId);
+        return res.status(200).json(response);
+    } catch (error) {
+        console.error('Error active user account:', error);
+        return res.status(500).json({
+            err: -1,
+            msg: 'Failed to active user account: ' + error.message
+        });
+    }
+};

@@ -9,5 +9,6 @@ router.use(verifyToken)
 router.get('/get-current', userController.getCurrent)
 router.get('/get-all-user', userController.getAllUser)
 router.put('/update-profile', userController.updateProfile)
-
+router.put('/lock-user', userController.lockUser);
+router.put('/unlock-user', userController.unLockUser);
 export default router
