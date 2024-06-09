@@ -3,7 +3,7 @@ const express = require('express');
 const router = express.Router();
 
 import Stripe from 'stripe';
-import verifyToken from '../middlewares/verifyToken';
+import verifyToken from '../middlewares/verifyToken.js';
 const stripe = Stripe(process.env.STRIPE_KEY)
 
 router.use(verifyToken);

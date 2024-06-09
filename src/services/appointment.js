@@ -1,4 +1,4 @@
-import db from '../models';
+import db from '../models/modelIndex.js';
 import { v4 as generateId } from 'uuid';
 
 export const createNewAppointmentService = async (appointmentRequesterID, posterId, postId, appointmentData) => {

@@ -1,8 +1,8 @@
 const express = require('express');
 const { v4: uuidv4 } = require('uuid');
-import db from '../models';
+import db from '../models/modelIndex.js';
 import { Op } from 'sequelize';
-import verifyToken from '../middlewares/verifyToken';
+import verifyToken from '../middlewares/verifyToken.js';
 const router = express.Router();
 router.use(verifyToken);
 

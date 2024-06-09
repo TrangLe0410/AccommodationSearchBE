@@ -1,4 +1,4 @@
-import db from '../models'
+import db from '../models/modelIndex.js'
 const { Op } = require("sequelize");
 import moment from 'moment'
 

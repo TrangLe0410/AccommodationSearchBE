@@ -1,4 +1,4 @@
-import db from '../models'
+import db from '../models/modelIndex.js'
 const { Op } = require("sequelize");
 // GET CURRENT
 export const getOne = (id) => new Promise(async (resolve, reject) => {

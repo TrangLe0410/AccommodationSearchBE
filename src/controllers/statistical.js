@@ -1,4 +1,4 @@
-import * as statisticalService from '../services/statistical'
+import * as statisticalService from '../services/statistical.js'
 
 export const calculateAverageRentByPostId = async (req, res) => {
     const { postId } = req.query;

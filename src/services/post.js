@@ -1,9 +1,9 @@
-import db from '../models'
+import db from '../models/modelIndex.js'
 const { Op } = require("sequelize");
 import { v4 as generateId } from 'uuid'
-import generateCode from '../ultis/generateCode'
+import generateCode from '../ultis/generateCode.js'
 import moment from 'moment'
-import generateDate from '../ultis/genarateDate';
+import generateDate from '../ultis/genarateDate.js';
 export const getPostsService = () => new Promise(async (resolve, reject) => {
     try {
         const response = await db.Post.findAll({

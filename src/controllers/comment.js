@@ -1,5 +1,5 @@
-import * as commentService from '../services/comment';
-import * as userService from '../services/user'
+import * as commentService from '../services/comment.js';
+import * as userService from '../services/user.js'
 export const createNewComment = async (req, res) => {
     const { userId, postId, content, rate } = req.body; // Thêm trường rate
     try {

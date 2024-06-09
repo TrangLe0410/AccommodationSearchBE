@@ -1,6 +1,6 @@
 import express from 'express'
-import * as appointmentController from '../controllers/appointment'
-import verifyToken from '../middlewares/verifyToken'
+import * as appointmentController from '../controllers/appointment.js'
+import verifyToken from '../middlewares/verifyToken.js'
 const router = express.Router()
 
 router.use(verifyToken)

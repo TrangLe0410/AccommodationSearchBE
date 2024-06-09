@@ -1,4 +1,4 @@
-import * as authService from '../services/auth'
+import * as authService from '../services/auth.js'
 import jwt from 'jsonwebtoken'
 export const register = async (req, res) => {
     const { name, phone, email, password } = req.body

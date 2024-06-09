@@ -1,6 +1,5 @@
-import * as appointmentService from '../services/appointment';
-import * as userService from '../services/user'
-import * as postService from '../services/post'
+import * as appointmentService from '../services/appointment.js';
+
 export const createNewAppointment = async (req, res) => {
     const { appointmentRequesterID, posterId, postId, appointmentDate, appointmentTime, content } = req.body;
     try {

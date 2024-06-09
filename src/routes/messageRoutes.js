@@ -4,7 +4,7 @@ const { Message, Conversation } = require('../models');
 const moment = require('moment-timezone');
 const { Op } = require("sequelize");
 const router = express.Router();
-import verifyToken from '../middlewares/verifyToken';
+import verifyToken from '../middlewares/verifyToken.js';
 
 router.use(verifyToken);
 // Gửi tin nhắn mới

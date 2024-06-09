@@ -1,15 +1,15 @@
-import db from '../models'
+import db from '../models/modelIndex.js'
 import bcrypt from 'bcryptjs'
 import { v4 } from 'uuid'
-import chothuematbang from '../../data/chothuematbang.json'
-import chothuecanho from '../../data/chothuecanho.json'
-import nhachothue from '../../data/nhachothue.json'
-import chothuephongtro from '../../data/chothuephongtro.json'
-import chothuephongtrodanang from '../../data/chothuephongtrodanang.json'
-import danang from '../../data/danang.json'
-import generateCode from '../ultis/generateCode'
-import { dataPrice, dataArea } from '../ultis/data'
-import { getNumberFromString, getNumberFromStringV2 } from '../ultis/common'
+import chothuematbang from '../../data/chothuematbang.json' assert { type: 'json' };
+import chothuecanho from '../../data/chothuecanho.json' assert { type: 'json' };
+import nhachothue from '../../data/nhachothue.json' assert { type: 'json' };
+import chothuephongtro from '../../data/chothuephongtro.json' assert { type: 'json' };
+import chothuephongtrodanang from '../../data/chothuephongtrodanang.json' assert { type: 'json' };
+import danang from '../../data/danang.json' assert { type: 'json' };
+import generateCode from '../ultis/generateCode.js'
+import { dataPrice, dataArea } from '../ultis/data.js'
+import { getNumberFromString, getNumberFromStringV2 } from '../ultis/common.js'
 require('dotenv').config()
 
 const dataBody = danang.body

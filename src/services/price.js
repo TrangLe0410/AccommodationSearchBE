@@ -1,4 +1,4 @@
-import db from '../models'
+import db from '../models/modelIndex.js'
 
 // GET ALL PRICE
 export const getPricesSerivce = () => new Promise(async (resolve, reject) => {

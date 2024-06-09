@@ -1,6 +1,6 @@
 import express from 'express'
-import * as statisticalController from '../controllers/statistical'
-import verifyToken from '../middlewares/verifyToken'
+import * as statisticalController from '../controllers/statistical.js'
+import verifyToken from '../middlewares/verifyToken.js'
 const router = express.Router()
 
 router.get('/average-rent', statisticalController.calculateAverageRentByPostId);

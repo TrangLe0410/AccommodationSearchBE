@@ -1,6 +1,6 @@
 import express from 'express'
-import * as controllers from '../controllers/province'
-import db from '../../data/db.json';
+import * as controllers from '../controllers/province.js'
+import db from '../../data/db.json' assert { type: 'json' };
 const router = express.Router()
 
 router.get('/all', controllers.getProvinces)

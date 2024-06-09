@@ -1,8 +1,8 @@
 // routes/notification.js
 const express = require('express');
 const router = express.Router();
-const { Notification } = require('../models');
-import verifyToken from '../middlewares/verifyToken';
+const { Notification } = require('../models/notification.js');
+import verifyToken from '../middlewares/verifyToken.js';
 
 router.use(verifyToken);
 router.post('/create-notification', async (req, res) => {

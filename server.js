@@ -3,8 +3,9 @@ const cors = require('cors');
 const http = require('http');
 const { Server } = require('socket.io');
 import 'dotenv/config';
-import initRoutes from './src/routes';
-import connectDatabase from './src/config/connectDatabase';
+import initRoutes from './src/routes/index.js';
+
+import connectDatabase from './src/config/connectDatabase.js';
 
 const { Message, Notification } = require('./src/models');
 const { v4: uuidv4 } = require('uuid');
