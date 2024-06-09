@@ -1,7 +1,7 @@
 const express = require('express');
-import cors from 'cors';
-import http from 'http';
-import { Server } from 'socket.io';
+const cors = require('cors');
+const http = require('http');
+const { Server } = require('socket.io');
 import 'dotenv/config';
 import initRoutes from './src/routes';
 import connectDatabase from './src/config/connectDatabase';
