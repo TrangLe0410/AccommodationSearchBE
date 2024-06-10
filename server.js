@@ -1,14 +1,15 @@
-const express = require('express');
-const cors = require('cors');
-const http = require('http');
-const { Server } = require('socket.io');
-import 'dotenv/config';
-import initRoutes from './src/routes';
-import connectDatabase from './src/config/connectDatabase';
+import express from 'express';
+import cors from 'cors';
+import http from 'http';
+import { Server } from 'socket.io';
+import 'dotenv/config.js';
+import initRoutes from './src/routes/index.js';
+import connectDatabase from './src/config/connectDatabase.js';
+import { Message, Notification } from './src/models';
+import { v4 as uuidv4 } from 'uuid';
+import moment from 'moment-timezone';
 
-const { Message, Notification } = require('./src/models');
-const { v4: uuidv4 } = require('uuid');
-const moment = require('moment-timezone');
+
 // Initialize Express app
 const app = express();
 
