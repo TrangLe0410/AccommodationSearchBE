@@ -11,7 +11,7 @@ const sequelize = new Sequelize('accommodation', 'root', '123456', {
 const connectDatabase = async () => {
     try {
         await sequelize.authenticate();
-        console.log('Connection has been established successfully to host:', sequelize.options.host, 'on port:', sequelize.options.port);
+        console.log('Connection database has been established successfully to host:', sequelize.options.host, 'on port:', sequelize.options.port);
     } catch (error) {
         console.error('Unable to connect to the database:', error);
     }
