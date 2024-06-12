@@ -48,8 +48,8 @@ export const createNewPost = async (req, res) => {
             err: 1,
             msg: 'Missing inputs'
         })
-        const response = await postService.createNewPostService(req.body, id)
-        return res.status(200).json(response)
+        const postNew = await postService.createNewPostService(req.body, id)
+        return res.status(200).json(postNew)
 
     } catch (error) {
         return res.status(500).json({

@@ -110,10 +110,11 @@ export const createNewPostService = async (body, userId) => {
                 provinceCode = generateCode(addressArr[addressArr.length - 2].trim());
             }
         }
+        const postId = generateId();
 
-        await Promise.all([
+        const postNew = await Promise.all([
             db.Post.create({
-                id: generateId(),
+                id: postId,
                 title: body.title,
                 labelCode,
                 address: body.address || null,
@@ -148,7 +149,7 @@ export const createNewPostService = async (body, userId) => {
                 area: body.label,
                 type: body.category,
                 target: body.target || '',
-                bonus: 'Tin thường',
+                bonus: 'Tin miễn phí',
                 created: currentDate.today,
                 expired: currentDate.expireDay,
             }),
@@ -172,9 +173,12 @@ export const createNewPostService = async (body, userId) => {
             })
         ]);
 
+
         return {
             err: 0,
             msg: 'OK',
+            postNew
+
         };
     } catch (error) {
         throw error;
