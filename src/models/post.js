@@ -18,6 +18,7 @@ module.exports = (sequelize, DataTypes) => {
             Post.hasMany(models.SavedPost, { foreignKey: 'postId', as: 'savedPosts' });
             // Post.belongsTo(models.Appointment, { foreignKey: 'appointmentId', targetKey: 'id', as: 'appointments' })
             Post.hasMany(models.Comment, { foreignKey: 'postId', as: 'comments' });
+
         }
     }
     Post.init({
