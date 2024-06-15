@@ -1,13 +1,19 @@
-const { Sequelize } = require('sequelize');
+import { Sequelize } from 'sequelize';
 
-
-// Option 3: Passing parameters separately (other dialects)
-const sequelize = new Sequelize('accommodation', 'root', null, {
-    host: 'localhost',
-    dialect: 'mysql',
-    logging: false
+// Cấu hình Sequelize
+const sequelize = new Sequelize('verceldb', 'default', '6uPgnZfrYzq4', {
+    host: 'ep-royal-brook-a4ppe4x7.us-east-1.aws.neon.tech',
+    dialect: 'postgres',
+    port: 5432,
+    dialectOptions: {
+        ssl: {
+            require: true,
+            rejectUnauthorized: false
+        }
+    }
 });
 
+// Hàm kết nối cơ sở dữ liệu
 const connectDatabase = async () => {
     try {
         await sequelize.authenticate();
@@ -17,4 +23,4 @@ const connectDatabase = async () => {
     }
 }
 
-export default connectDatabase
+export default connectDatabase;
