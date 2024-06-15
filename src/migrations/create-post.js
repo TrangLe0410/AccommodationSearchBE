@@ -54,6 +54,9 @@ module.exports = {
             areaNumber: {
                 type: Sequelize.FLOAT
             },
+            video: {
+                type: Sequelize.STRING,
+            },
             status: {
                 type: Sequelize.ENUM('Pending', 'Approved', 'Canceled'),
                 defaultValue: 'Approved'
