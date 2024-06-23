@@ -1,7 +1,12 @@
 'use strict';
+/** @type {import('sequelize-cli').Migration} */
 const { DataTypes } = require('sequelize');
+
 module.exports = {
   async up(queryInterface, Sequelize) {
+    await queryInterface.sequelize.query(
+      `CREATE TYPE "enum_Users_status" AS ENUM('active', 'locked');`
+    );
     await queryInterface.createTable('Users', {
       id: {
         allowNull: false,
@@ -36,6 +41,15 @@ module.exports = {
       },
       email: {
         type: Sequelize.STRING
+      },
+      balance: {
+        type: Sequelize.FLOAT,
+        defaultValue: 0
+      },
+      status: {
+        type: DataTypes.ENUM('active', 'locked'),
+        allowNull: false,
+        defaultValue: 'active'
       },
       createdAt: {
         allowNull: false,

@@ -15,8 +15,9 @@ const app = express();
 
 // Configure CORS
 app.use(cors({
-    origin: process.env.CLIENT_URL,
+    origin: "*",
     methods: ["GET", "POST", "PUT", "DELETE"],
+
 }));
 
 // Middleware to parse JSON and URL-encoded data
@@ -35,7 +36,7 @@ const server = http.createServer(app);
 // Initialize Socket.io server
 const io = new Server(server, {
     cors: {
-        origin: process.env.CLIENT_URL,
+        origin: "*",
         methods: ["GET", "POST"],
     },
 });

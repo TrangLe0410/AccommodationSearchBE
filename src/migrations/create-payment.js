@@ -5,7 +5,7 @@ module.exports = {
             id: {
                 allowNull: false,
                 primaryKey: true,
-                type: Sequelize.STRING // Thay đổi kiểu dữ liệu của cột id thành STRING
+                type: Sequelize.STRING
             },
             datetime_transaction: {
                 type: Sequelize.DATE,
