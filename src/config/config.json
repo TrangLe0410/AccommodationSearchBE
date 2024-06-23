@@ -1,16 +1,15 @@
 {
   "development": {
-    "username": "default",
-    "password": "6uPgnZfrYzq4",
-    "database": "verceldb",
-    "host": "ep-royal-brook-a4ppe4x7.us-east-1.aws.neon.tech",
-    "dialect": "postgres",
+    "username": "root",
+    "password": "gmnWYBmPrvZMIzqbBbNelTeShWfHXfxI",
+    "database": "railway",
+    "host": "monorail.proxy.rlwy.net",
+    "port": 56109,
+    "dialect": "mysql",
     "logging": false,
-    "dialectOptions": {
-      "ssl": {
-        "require": true,
-        "rejectUnauthorized": false
-      }
+    "timezone": "+07:00",
+    " query": {
+      "raw": true
     }
   },
   "test": {
